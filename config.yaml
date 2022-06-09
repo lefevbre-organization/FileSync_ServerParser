@@ -1,6 +1,6 @@
 app_paths:
     processed_log_files: "PROCESSED_FILES"  
-    customers_source_base: "D:/LefebvreFileSync/tool"
+    customers_source_base: "D:/LefebvreFileSync_ServerParser/test"
     archive_folder : "files"
 watcher:
     directory: "LogRsync"
