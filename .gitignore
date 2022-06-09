@@ -3,3 +3,6 @@
 ################################################################################
 
 /PROCESSED_FILES
+/LogRsync
+/archive_logging
+/archive_error
