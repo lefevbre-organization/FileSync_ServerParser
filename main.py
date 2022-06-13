@@ -16,15 +16,15 @@ from schedule import every, repeat, run_pending
 import api
 from utils import Utils
 
-## archive logging
-hdler = logginfilehandler.CustomLoggingFileHandler(settings.FILENAME_LOGGING)
-## logging configuration
-logging.basicConfig(encoding='utf-8', level=logging.NOTSET, handlers=[hdler], 
-                        format='%(asctime)s:%(levelname)s:%(message)s',
-                        datefmt='%Y-%m-%d %H:%M:%S')
+# ## archive logging
+# hdler = logginfilehandler.CustomLoggingFileHandler(settings.FILENAME_LOGGING)
+# ## logging configuration
+# logging.basicConfig(encoding='utf-8', level=logging.NOTSET, handlers=[hdler], 
+#                         format='%(asctime)s:%(levelname)s:%(message)s',
+#                         datefmt='%Y-%m-%d %H:%M:%S')
 
-## archive errors
-hdlerror = errorfilehandler.CustomErrorFileHandler(settings.FILENAME_ERROR)
+# ## archive errors
+# hdlerror = errorfilehandler.CustomErrorFileHandler(settings.FILENAME_ERROR)
 
 
 ## settigs 
@@ -82,7 +82,15 @@ def main ():
 ## start main process
 def startprocess ():
 
-    
+    ## archive logging
+    hdler = logginfilehandler.CustomLoggingFileHandler(settings.FILENAME_LOGGING)
+    ## logging configuration
+    logging.basicConfig(encoding='utf-8', level=logging.NOTSET, handlers=[hdler], 
+                            format='%(asctime)s:%(levelname)s:%(message)s',
+                            datefmt='%Y-%m-%d %H:%M:%S')
+
+    ## archive errors
+    hdlerror = errorfilehandler.CustomErrorFileHandler(settings.FILENAME_ERROR)
     
     ## check if endpints are ok
     if  api.method_check(settings.ENDPOINT_TO_CHECK) == False:
