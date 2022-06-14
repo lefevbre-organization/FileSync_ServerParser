@@ -21,6 +21,7 @@ class Settings:
         global ARCHIVE_ERROR
         global CUSTOMERS_SOURCE_BASE
         global ARCHIVE_FOLDER
+        global QUEUE_MAXSIZE
         
         PROCESSED_LOG_FILES = cfg["app_paths"]["processed_log_files"]
         DIRECTORY_TO_WATCH = cfg["watcher"]["directory"] 
@@ -36,6 +37,7 @@ class Settings:
         ARCHIVE_ERROR = cfg["error"]["archive"]
         CUSTOMERS_SOURCE_BASE = cfg["app_paths"]["customers_source_base"]
         ARCHIVE_FOLDER = cfg["app_paths"]["archive_folder"]
+        QUEUE_MAXSIZE = int(cfg["queue"]["maxsize"] )     
 
     if __name__ == "__main__":
         init()

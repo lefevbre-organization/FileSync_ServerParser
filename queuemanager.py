@@ -125,7 +125,8 @@ def orchestration_process(log_actions):
 def task_thread_dispatcher(key, actionCollection):
     #new queue (restful calls) and one thread for each action or methods to call
     inxtasks = 0
-    qApi = queue.Queue()
+    qApi = queue.Queue(maxsize=settings.QUEUE_MAXSIZE)    
+    
     for i in actionCollection:        
         inxtasks = inxtasks + 1
         workerApi = threading.Thread(target=restful_queue, args=(qApi,inxtasks, json.loads(i)), daemon=True)
@@ -143,7 +144,7 @@ class Queue:
         # new queue (main) into the the thread 
         logging.debug("Main Queue" + " (#" + str(inxforTrhead) + ") " + "init - " + logpath)
         print("Main Queue" + " (#" + str(inxforTrhead) + ") " + "init - " + logpath)     
-        q = queue.Queue()		
+        q = queue.Queue()        		
         worker = threading.Thread(target=main_queue, args=(q, inxforTrhead,log_actions), daemon=True)
         worker.start()
         q.put(logpath)		

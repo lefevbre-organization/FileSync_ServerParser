@@ -118,7 +118,7 @@ def method_post(log_action):
         # passing files on copied new items
         
         try:
-            files = {'fileData': open(filepath,'rb')}
+            filesOpen = {'fileData': open(filepath,'rb')}
         except IOError as e:
             logging.error({"message": e.strerror  + " - object: " + log_action['object']} )
             logging.error({"filepath ": filepath} )
@@ -131,7 +131,7 @@ def method_post(log_action):
     
     for _ in range(settings.MAX_RETRIES):
         try:
-            response = requests.post(endpoint_url, files=files, data=data, timeout=settings.MAX_TIMEOUT)
+            response = requests.post(endpoint_url, files=filesOpen, data=data, timeout=settings.MAX_TIMEOUT)
     
             print("Requesting method_post: " + log_action['object'])
             #raise requests.exceptions.Timeout
@@ -172,11 +172,12 @@ def method_post(log_action):
         except requests.RequestException as err:
             logging.error({"message": err})
             #pass
+        finally:           
+            filesOpen['fileData'].close()
+        
         return False
-    
-    
-    
 
+    
 def method_delete(log_action): 
     
     companyid = log_action['idcompany']
