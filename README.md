@@ -7,4 +7,3 @@ python -m pip install requests
 python -m pip install watchdog
 python -m pip isntall schedule
 
-CTRL + SHIFT + P and type in "indentation".
