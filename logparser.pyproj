@@ -27,11 +27,7 @@
     <Compile Include="utils.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".vscode\Nuevo documento de texto.txt" />
     <Content Include="requirements.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include=".vscode" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="python 3.10\">
