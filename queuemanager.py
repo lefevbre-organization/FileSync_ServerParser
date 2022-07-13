@@ -125,7 +125,8 @@ def orchestration_process(log_actions):
 def task_thread_dispatcher(key, actionCollection):
     #new queue (restful calls) and one thread for each action or methods to call
     inxtasks = 0
-    qApi = queue.Queue(maxsize=settings.QUEUE_MAXSIZE)    
+    #qApi = queue.Queue(maxsize=settings.QUEUE_MAXSIZE) 
+    qApi = queue.Queue()    
     
     for i in actionCollection:        
         inxtasks = inxtasks + 1

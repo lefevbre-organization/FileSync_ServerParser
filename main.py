@@ -84,10 +84,16 @@ def main ():
 ## start main process
 def startprocess ():
 
+    logging.shutdown()
     logginfilehandler.CustomLoggingFileHandler(settings.FILENAME_LOGGING)
-
+    
     ## archive errors
-    errorfilehandler.CustomErrorFileHandler(settings.FILENAME_ERROR)
+    ## logging configuration
+    # logging.basicConfig(encoding='utf-8', level=logging.NOTSET, filename=settings.FILENAME_LOGGING, 
+    #                     format='%(asctime)s:%(levelname)s:%(message)s',
+    #                     datefmt='%Y-%m-%d %H:%M:%S')
+    
+    logging.FileHandler.baseFilename = settings.FILENAME_LOGGING
     
     ## check if endpints are ok
     if  api.method_check(settings.ENDPOINT_TO_CHECK) == False:
@@ -130,7 +136,7 @@ def startprocess ():
                 QueueProcess.main(log_actions,inxforTrhead)
                 
                 # Finally Move log file to the selected processed folder
-                Utils.move_file(logpath)
+                #Utils.move_file(logpath)
                 
         # except BaseException as err:
         #     logging.error({"message": err})

@@ -22,8 +22,12 @@ class CustomLoggingFileHandler(logging.FileHandler):
 
     def _archive_log(self, filepath):
         if os.path.exists(filepath):
+            #if os.path.getsize(filepath) > 0:
             if not os.path.exists(datetime.now().strftime(self._archive)):
-                os.rename(filepath, datetime.now().strftime(self._archive))
+                try:
+                    os.rename(filepath, datetime.now().strftime(self._archive))
+                except OSError as err:
+                    print("OS error: {0}".format(err))
 
     def close(self):
         super().close()

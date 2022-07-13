@@ -5,7 +5,7 @@ app_paths:
 watcher:
     directory: "LogRsync"
 scheduler:
-    time_interval: 300
+    time_interval: 30
 logging:
     filename: "monitor.log"
     level: DEBUG
@@ -23,5 +23,5 @@ other:
     endpoint_to_check : "https://led-qa-api-lexon.lefebvre.es"  
     # https://herculesppd.lefebvre.es     
     # https://online.elderecho.com for production
-    # QA -> http://led-qa-api-lexon.lefebvre.es
+    # QA -> https://led-qa-api-lexon.lefebvre.es
     # PRO -> https://api.lex-on.es
