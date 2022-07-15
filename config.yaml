@@ -15,8 +15,7 @@ error:
     archive: "archive_error"
 queue:
     processing_queue: yes
-    time: 0.1 
-    maxsize: 3     
+    time: 0.1
 other:
     max_retries: 10
     timeout: 60

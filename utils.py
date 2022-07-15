@@ -51,6 +51,27 @@ class Utils:
       logging.info("user name: " + file_name.split("-")[1])
       return file_name.split("-")[1]
 
+    def get_aliases(self,logname):
+      split_name = os.path.splitext(self.path_leaf(logname))
+      file_name = split_name[0]
+      print("aliases: ", file_name.split("-")[2])
+      logging.info("aliases: " + file_name.split("-")[2])
+      return file_name.split("-")[2]
+
+    def is_aliases(self,logname):
+      split_name = os.path.splitext(self.path_leaf(logname))
+      file_name = split_name[0]
+      counter = len(file_name.split("-"))
+      print("Searchig for alias format: ", logname)
+      logging.info("Searchig for alias format: ", logname)
+      if counter > 3:
+          print("is alias format: TRUE")
+          logging.info("is alias format: TRUE")
+          return True
+      else:
+          print("is alias format: FALSE")
+          logging.info("is alias format: FALSE")
+          return False
         
     def move_file( file):
       try:        

@@ -1,8 +1,9 @@
 import json
+from random import lognormvariate
 import utils
 
 ## all possible action of rclone  
-possible_action_rclone= ['idcompany','iduser','logpath','Moved','Renamed','Copied (replaced existing)', 'Copied (new)','Updated', 'Deleted', 'Duplicate', 'Couldn\'t delete', 'Not copying', 'Not updating','Not deleting', 'Others']
+possible_action_rclone= ['idcompany','iduser','logpath','aliases','Moved','Renamed','Copied (replaced existing)', 'Copied (new)','Updated', 'Deleted', 'Duplicate', 'Couldn\'t delete', 'Not copying', 'Not updating','Not deleting', 'Others']
 
 
 
@@ -39,6 +40,13 @@ def select_actions_based_on_condition(datetime_condition, logpath,  list_of_acti
 
     # adding iduser name to the main object
     log_actions['iduser'].append(iduser)
+
+    #getting aliases from log file
+    aliases = None
+    if util.is_aliases(logpath):
+        aliases = util.get_aliases(logpath)
+        #adding aliases name to the main object        
+        log_actions['aliases'].append(aliases)
     
     #adding log file path to the main object
     log_actions['logpath'].append(logpath)
@@ -74,6 +82,9 @@ def select_actions_based_on_condition(datetime_condition, logpath,  list_of_acti
             msg_json_object['idcompany']= idcompany
             msg_json_object['iduser']= iduser
             msg_json_object['logpath']= logpath
+
+            if aliases is not None:                
+                msg_json_object['aliases']= aliases
 
             
             #if key in action_from_log:            

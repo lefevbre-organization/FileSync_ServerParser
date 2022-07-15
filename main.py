@@ -34,7 +34,6 @@ logging.debug("PROCESSED_FILES ------ " + settings.PROCESSED_LOG_FILES)
 logging.debug("DIRECTORY_TO_WATCH --- " + settings.DIRECTORY_TO_WATCH)
 logging.debug("LOGGING_LEVEL -------- " + settings.LOGGING_LEVEL)
 logging.debug("QUEUE_TIME ----------- " + str(settings.QUEUE_TIME))
-logging.debug("QUEUE_MAZSIZE ------------ " + str(settings.QUEUE_MAXSIZE))
 logging.debug("SCHEDULE_TIME -------- " + str(settings.SCHEDULER_TIME_INTERVAL))
 logging.debug("MAX_RETRIES ---------- " + str(settings.MAX_RETRIES))
 logging.debug("MAX_TIMEOUT ---------- " + str(settings.MAX_TIMEOUT))
@@ -51,7 +50,6 @@ print ("PROCESSED_LOG_FILES ------ " + settings.PROCESSED_LOG_FILES)
 print ("DIRECTORY_TO_WATCH ------- " + settings.DIRECTORY_TO_WATCH) 
 print ("LOGGING_LEVEL ------------ " + settings.LOGGING_LEVEL) 
 print ("QUEUE_TIME --------------- " + str(settings.QUEUE_TIME)) 
-print ("QUEUE_MAZSIZE ------------ " + str(settings.QUEUE_MAXSIZE)) 
 print ("SCHEDULE_TIME ------------ " + str(settings.SCHEDULER_TIME_INTERVAL))
 print ("MAX_RETRIES -------------- " + str(settings.MAX_RETRIES))
 print ("MAX_TIMEOUT ---------- --- " + str(settings.MAX_TIMEOUT))
@@ -136,7 +134,7 @@ def startprocess ():
                 QueueProcess.main(log_actions,inxforTrhead)
                 
                 # Finally Move log file to the selected processed folder
-                Utils.move_file(logpath)
+                #Utils.move_file(logpath)
                 
         # except BaseException as err:
         #     logging.error({"message": err})

@@ -8,55 +8,6 @@ import utils
 ## settigs 
 settings.Settings.init() # Call only once
 
-
-#methdos
-
-##deleted (fake)
-# def method_delete(log_action):
-    
-#     response = requests.post('https://httpbin.org/post', data = {'key':'value'})
-#     print("Requesting method_deleted: " + log_action['object'])    
-#     if (response.status_code == 200):
-#         print("The request of method_deleted : " +  log_action['object'] + " was a success!")
-#         # Code here will only run if the request is successful
-#     elif (response.status_code) == 404:
-#         print("Result method_deleted: " +  log_action['object'] + " not found!")
-#             # Code here will react to failed requests
-
-##updated (fake)
-# def method_post(log_action, base64data):
-
-#     for _ in range(settings.MAX_RETRIES):
-#         try:
-#             response = requests.post('https://httpbin.org/post', data = {'key':'value'})
-#             print("Requesting method_deleted: " + log_action['object'])    
-#             if (response.status_code == 200):
-#                 print("The request of method_deleted : " +  log_action['object'] + " was a success!")
-#             # Code here will only run if the request is successful
-#             elif (response.status_code) == 404:
-#                 print("Result method_deleted: " +  log_action['object'] + " not found!")
-#                 # Code here will react to failed requests
-#             break
-#         except TimeoutError:
-#             pass
-    
-    
-
-##updated (fake)
-# def method_put(log_action):
-    
-#     response = requests.post('https://httpbin.org/post', data = {'key':'value'})
-#     print("Requesting method_deleted: " + log_action['object'])    
-#     if (response.status_code == 200):
-#         print("The request of method_deleted : " +  log_action['object'] + " was a success!")
-#         # Code here will only run if the request is successful
-#     elif (response.status_code) == 404:
-#         print("Result method_deleted: " +  log_action['object'] + " not found!")
-# 			# Code here will react to failed requests
-
-## insert and updated
-
-
 ##check endpoint (bool)
 def method_check(endpoint_to_check): 
     try: 
@@ -82,7 +33,13 @@ def method_check(endpoint_to_check):
 def method_post(log_action):
     
     companyid = log_action['idcompany']
-    userid = log_action['iduser']    
+    userid = log_action['iduser'] 
+    
+    aliases_str = ""
+    if 'aliases' in log_action:
+        aliases_str = log_action['aliases'] + "/"
+        
+    filesOpen  = None 
     
     ## if Renamed then 
     if "Renamed" in log_action['msg']:
@@ -101,18 +58,21 @@ def method_post(log_action):
                 
         else:
             # renamend action   
-            dirname = os.path.dirname(utils.Utils.extact_double_cuotes(log_action['msg']))
+            #dirname = os.path.dirname(utils.Utils.extact_double_cuotes(log_action['msg']))
+            dirname = f'{aliases_str}{os.path.dirname(utils.Utils.extact_double_cuotes(log_action["msg"]))}'
             filename = os.path.basename(utils.Utils.extact_double_cuotes(log_action['msg']))
             newfilename = os.path.basename(log_action['object'])
             value = "{\"path\": \"%s\",\"fileName\": \"%s\",\"idEntityType\": \"78\",\"idEntity\": \"1\", \"newFileName\": \"%s\"}" %(dirname, filename, newfilename)
             files = None
     ## Copied new   
-    else:
-        dirname = os.path.dirname(log_action['object'])
-        filename = os.path.basename(log_action['object']) 
-
+    else:  
         
-        filepath = settings.CUSTOMERS_SOURCE_BASE + "/" + log_action['idcompany']  + "/" + settings.ARCHIVE_FOLDER + "/" + log_action['object']
+
+        dirname = f'{aliases_str}{os.path.dirname(log_action["object"])}'
+        filename = os.path.basename(log_action['object']) 
+                
+        #filepath = settings.CUSTOMERS_SOURCE_BASE + "/" + log_action['idcompany']  + "/" + settings.ARCHIVE_FOLDER + "/" + log_action['object']
+        filepath = f'{settings.CUSTOMERS_SOURCE_BASE}/{log_action["idcompany"]}/{settings.ARCHIVE_FOLDER}/{aliases_str}{log_action["object"]}'
         
         value="{\"path\": \"%s\",\"fileName\": \"%s\",\"idEntityType\": \"78\",\"idEntity\": \"1\"}" %(dirname, filename) 
         # passing files on copied new items
@@ -172,17 +132,23 @@ def method_post(log_action):
         except requests.RequestException as err:
             logging.error({"message": err})
             #pass
-        finally:           
-            filesOpen['fileData'].close()
+        finally: 
+            if filesOpen is not None:         
+                filesOpen['fileData'].close()
         
         return False
 
     
 def method_delete(log_action): 
+
+    aliases_str = ""
+    if 'aliases' in log_action:
+        aliases_str = log_action['aliases'] + "/"
     
     companyid = log_action['idcompany']
     userid = log_action['iduser']
-    dirname = os.path.dirname(log_action['object'])
+    #dirname = os.path.dirname(log_action['object'])
+    dirname= f'{aliases_str}{os.path.dirname(log_action["object"])}'
     filename = os.path.basename(log_action['object'])  
     
     value="{\"path\": \"%s\",\"fileName\": \"%s\",\"idEntityType\": \"78\",\"idEntity\": \"1\"}" %(dirname, filename)    

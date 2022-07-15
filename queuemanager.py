@@ -114,7 +114,7 @@ def orchestration_process(log_actions):
             print(('\n').join(value))
             ## Orchesting to differents enpoints depending of action type
             ## excludig the "Other", "logpath" , and "stats" tags		
-            if (key != "Others" and key != "logpath" and key != "stats" and key != "idcompany" and key != "iduser"):
+            if (key != "Others" and key != "logpath" and key != "stats" and key != "idcompany" and key != "iduser" and key != "aliases"):
                 task_thread_dispatcher(key,value)           
 
         else:               
