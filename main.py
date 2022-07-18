@@ -134,7 +134,7 @@ def startprocess ():
                 QueueProcess.main(log_actions,inxforTrhead)
                 
                 # Finally Move log file to the selected processed folder
-                #Utils.move_file(logpath)
+                Utils.move_file(logpath)
                 
         # except BaseException as err:
         #     logging.error({"message": err})
